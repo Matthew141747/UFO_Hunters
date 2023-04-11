@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "138878407555",
+    "project_id": "lab-2-be5eb",
+    "storage_bucket": "lab-2-be5eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138878407555:android:367c7574077624923e9cb6",
+        "android_client_info": {
+          "package_name": "com.example.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138878407555-bg76nroi6lcpktl4mhmui59pghca2s3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnaTX-Xr-XkMIJQi2Wgtd6T8EsybyOwA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138878407555-bg76nroi6lcpktl4mhmui59pghca2s3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138878407555:android:b670e67a38f1572a3e9cb6",
+        "android_client_info": {
+          "package_name": "com.example.ufo_hunters"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138878407555-bg76nroi6lcpktl4mhmui59pghca2s3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnaTX-Xr-XkMIJQi2Wgtd6T8EsybyOwA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138878407555-bg76nroi6lcpktl4mhmui59pghca2s3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

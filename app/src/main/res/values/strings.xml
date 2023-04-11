@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">UFO_Hunters</string>
+    <string name="Login">Login</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="RegisterNow">Register Now</string>
+    <string name="register">register</string>
+    <string name="login_now">login Now</string>
+    <string name="logout">logout</string>
+</resources>
