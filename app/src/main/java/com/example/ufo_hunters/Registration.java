@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,17 +34,30 @@ import java.util.Map;
 
 public class Registration extends AppCompatActivity {
 
-    public static final String TAG = "TAG";
-    TextInputEditText editTextEmail, editTextPassword, editTextFullName;
+
+    TextInputEditText editTextEmail, editTextPassword,editTextPasswordB, editTextFullName;
     Button buttonRegister;
     FirebaseAuth mAuth;
     FirebaseFirestore fStore;
     TextView textView;
     ProgressBar progressBar;
     private Button buttonToLogin;
-    private TextView tvSlectDate;
-    private EditText etSelectDate;
+    private TextView SelectDate;
+    private static final String TAG = "TAG";
+
+    //private EditText SelectDate;
+
+    private DatePickerDialog.OnDateSetListener DateSetListener;
     String userID;
+
+    public boolean checkPassword(String a, String b){
+        if(a.equals(b)){
+            return true;
+        }else{
+            Toast.makeText(Registration.this,"Passwords do not match" ,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
 
 
     @Override
@@ -65,36 +80,40 @@ public class Registration extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         editTextEmail =findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
+        editTextPasswordB = findViewById(R.id.passwordConfirm);
         editTextFullName = findViewById(R.id.FullName);
         buttonRegister = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         buttonToLogin = (Button) findViewById(R.id.changeToLogin);
 
-        /**
-        tvSlectDate = findViewById(R.id.date);
-        etSelectDate = findViewById(R.id.edit_date);
-        final Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-        **/
-        /**
-        tvSlectDate.setOnClickListener(new View.OnClickListener() {
+        SelectDate = (TextView) findViewById(R.id.edit_date);
+
+        SelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                        month = month+1;
-                        String date = dayOfMonth+"/"+month+"/"+year;
-                        tvSlectDate.setText(date);
-                    }
-                },year,month,day);
-                dialog.show();
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    DatePickerDialog dialog = new DatePickerDialog(Registration.this,
+                            android.R.style.Theme_Holo_Dialog_NoActionBar_MinWidth, DateSetListener, year,month,day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                }
             }
-        });**/
+        });
 
+
+        DateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month+1;
+                String date = month + "/" + day + "/" + year;
+                SelectDate.setText(date);
+            }
+        };
 
 
         buttonToLogin.setOnClickListener(new View.OnClickListener() {
@@ -106,67 +125,69 @@ public class Registration extends AppCompatActivity {
             }
         });
 
-        /**
-        textView.findViewById(R.id.loginNow);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
-            }
-        });**/
-
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                String email, password, fullName;
+                String email, password, passwordB, fullName, DOB;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
+                passwordB = String.valueOf(editTextPasswordB.getText());
                 fullName = String.valueOf((editTextFullName.getText()));
+                DOB =  SelectDate.getText().toString();
 
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Registration.this,"Enter Email" ,Toast.LENGTH_SHORT).show();
+
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(Registration.this, "Enter Email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(Registration.this, "Enter Password" ,Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(Registration.this, "Enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Registration.this, "Account Created",
-                                            Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(passwordB)) {
+                    Toast.makeText(Registration.this, "Confirm Password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                                    userID = mAuth.getCurrentUser().getUid();
-                                    DocumentReference documentReference = fStore.collection("users").document(userID);
-                                    Map<String, Object> user = new HashMap<>();
-                                    user.put("FullName", fullName);
-                                    user.put("email", email);
-                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Log.d(TAG, "onSuccess: User Profile Is Created for "+ userID);
-                                        }
-                                    });
+                if (checkPassword(password, passwordB)) {
 
-                                    Intent intent = new Intent(getApplicationContext(), Login.class);
-                                    startActivity(intent);
-                                    finish();
-                                    //FirebaseUser user = mAuth.getCurrentUser();
-                                } else {
-                                    Toast.makeText(Registration.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    progressBar.setVisibility(View.GONE);
+
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Registration.this, "Account Created",
+                                                Toast.LENGTH_SHORT).show();
+
+                                        userID = mAuth.getCurrentUser().getUid();
+                                        DocumentReference documentReference = fStore.collection("users").document(userID);
+                                        Map<String, Object> user = new HashMap<>();
+                                        user.put("FullName", fullName);
+                                        user.put("email", email);
+                                        user.put("DOB", DOB);
+                                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "onSuccess: User Profile Is Created for " + userID);
+                                            }
+                                        });
+
+                                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                                        startActivity(intent);
+                                        finish();
+                                        //FirebaseUser user = mAuth.getCurrentUser();
+                                    } else {
+                                        Toast.makeText(Registration.this, "Account Creation failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
 
