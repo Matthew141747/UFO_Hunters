@@ -40,7 +40,7 @@ public class profilec extends AppCompatActivity {
         email = findViewById(R.id.textView7);
         DOB = findViewById(R.id.textView2);
         buttonLogout = findViewById(R.id.button8);
-        buttonHome = findViewById(R.id.buttonH);
+        buttonHome = findViewById(R.id.buttonHC);
         //buttonCommunity = findViewById(R.id.);
         buttonUpdate = findViewById(R.id.button);
        // buttonHome = findViewById(R.id.);

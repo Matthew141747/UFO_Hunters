@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button button, buttonB;
+    Button button, buttonB, buttonComunity;
     TextView textView;
     FirebaseUser user;
 
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         button= findViewById(R.id.logout);
         buttonB = findViewById(R.id.Profile);
         textView = findViewById(R.id.user_details);
+        buttonComunity = findViewById(R.id.Community);
 
         user = auth.getCurrentUser();
         if(user == null){
@@ -42,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), profilec.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonComunity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Community.class);
                 startActivity(intent);
                 finish();
             }
