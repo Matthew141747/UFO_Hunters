@@ -14,5 +14,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">name</string>
     <string name="user_email">user email</string>
-
+    <string name="title_activity_user_location">UserLocation</string>
+    <string name="title_activity_maps_view">Maps_view</string>
+    <string name="map_api_key">AIzaSyDREes1IDFTGlt1D5fWLk2cmzTVIoCjn-g</string>
 </resources>
