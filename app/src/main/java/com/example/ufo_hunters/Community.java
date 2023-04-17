@@ -1,25 +1,24 @@
 package com.example.ufo_hunters;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -28,11 +27,11 @@ import java.util.List;
 
 public class Community extends AppCompatActivity {
 
-    Button buttonA, buttonB, buttonC, buttonSearch;
+    Button buttonA, buttonB, buttonHC, buttonSearch;
     EditText mSearchField;
     TextView ResultTest;
     RecyclerView mResultList;
-
+    private static final String TAG = "search";
    // CollectionReference usersRef;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -41,6 +40,7 @@ public class Community extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_community);
 
         mSearchField = findViewById(R.id.searchForUser);
@@ -54,6 +54,8 @@ public class Community extends AppCompatActivity {
         mResultList.setAdapter(new searchAdapter(getApplicationContext(), usrs));
 
         buttonSearch = findViewById(R.id.button13);
+        buttonHC = findViewById(R.id.buttonHC);
+        buttonB = findViewById(R.id.button3);
 
       //  List<result> result = new ArrayList<>()
 
@@ -90,13 +92,37 @@ public class Community extends AppCompatActivity {
                                        // data += "ID: " + documentid + "\nFullName:" + FullName + "\nemail:" + email;
 
                                     }
-                                    //usrs.add(new userObj())
+                                    usrs.add(new userObj());
                                     //ResultTest.setText(data);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, e.toString());
                                 }
                             });
 
 
                 //}
+            }
+        });
+
+
+        buttonHC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), profilec.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

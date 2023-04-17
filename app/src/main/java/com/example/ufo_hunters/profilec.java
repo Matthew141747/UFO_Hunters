@@ -1,13 +1,13 @@
 package com.example.ufo_hunters;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +41,7 @@ public class profilec extends AppCompatActivity {
         DOB = findViewById(R.id.textView2);
         buttonLogout = findViewById(R.id.button8);
         buttonHome = findViewById(R.id.buttonHC);
-        //buttonCommunity = findViewById(R.id.);
+        buttonCommunity = findViewById(R.id.button2);
         buttonUpdate = findViewById(R.id.button);
        // buttonHome = findViewById(R.id.);
 
@@ -81,5 +81,24 @@ public class profilec extends AppCompatActivity {
                 finish();
             }
         });
+        buttonCommunity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Community.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
     }
 }

@@ -10,19 +10,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+//import org.checkerframework.checker.nullness.qual.NonNull;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+public class MainActivity extends AppCompatActivity {
+//implements OnMapReadyCallback
     FirebaseAuth auth;
     Button button, buttonB, buttonComunity;
     TextView textView;
@@ -81,15 +76,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 finish();
             }
         });
+        /**
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+     mapFragment.getMapAsync(this);
+         **/
     }
 
-  //  fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-    //getLastLocation();
+   // fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+   // getLastLocation();
 
-
+/**
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap){
         myMap = googleMap;
@@ -98,4 +95,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         myMap.moveCamera(CameraUpdateFactory.newLatLng(dublin));
 
     }
+    /**
+
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+
+    **/
 }

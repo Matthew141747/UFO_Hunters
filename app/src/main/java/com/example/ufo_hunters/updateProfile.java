@@ -1,15 +1,15 @@
 package com.example.ufo_hunters;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,7 +21,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class updateProfile extends AppCompatActivity {
-    Button uploadPhoto, update, returnToProfile;
+    Button uploadPhoto, update, returnToProfile, buttonHome, buttonCommunity;
     ImageView profilePhoto;
     Uri imageUri;
     FirebaseAuth auth;
@@ -46,7 +46,8 @@ public class updateProfile extends AppCompatActivity {
 
         update = findViewById(R.id.button6);
         returnToProfile = findViewById(R.id.button7);
-
+        buttonHome = findViewById(R.id.buttonHC);
+        buttonCommunity = findViewById(R.id.button2);
 
         uploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +56,23 @@ public class updateProfile extends AppCompatActivity {
             }
         });
 
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
+        buttonCommunity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void uploadImage(){
